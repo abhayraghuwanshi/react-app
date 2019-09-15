@@ -1,0 +1,9 @@
+.Card1{
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: 10%;
+}
+
+.class-card1{
+    width:200px;
+}
