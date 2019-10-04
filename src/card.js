@@ -1,53 +1,63 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { Card } from 'antd';
+import 'antd/dist/antd.css'; 
+import NameForm from './form'
+import List from './list'
+import {connect} from 'react-redux'
+import uuidv1 from 'uuid';
+import { AddTodoCardTitle } from './action/action'
 
-const useStyles = makeStyles({
-  card: {
-    width:'250px'
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
 
-class SimpleCard extends React.Component{
+function mapDispatchToProps(dispatch) {
+  return {
+    AddTodoCardTitle: ab => dispatch(AddTodoCardTitle(ab))
+  };
+}
+class SimpleCardS extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = { cardTitle: '' };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
+  }  
+
+
+  handleSubmit(event) {
+    event.preventDefault();
+  const { cardTitle } = this.state;
+  const id = uuidv1();
+  this.props.AddTodoCardTitle({ cardTitle, id });
+  this.setState({cardTitle:""})
+  }
+
 
 render(){
-  const classes = useStyles;
+  const { cardTitle } = this.state;
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {this.props.title}
-        </Typography>
-  
-        <Typography variant="body2" component="p">
-          {this.props.data}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <form style={{display:'flex'}}>
-<input></input> <Button size="small">Add</Button>
+    <div>
+     
+    <Card title={cardTitle.value}  style={{ width: 300 }}>
+    <form onSubmit={this.handleSubmit}>
+          <label htmlFor="cardTitle">
+            <input type="text" value={cardTitle}   id="cardTitle" onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="add title" />
         </form>
-       
-      </CardActions>
+      <NameForm/>
+      
     </Card>
+  
+  </div>
+   
   );
 }
 
 }
-
+const SimpleCard = connect(null, mapDispatchToProps)(SimpleCardS);
 export default SimpleCard;

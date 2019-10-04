@@ -1,45 +1,49 @@
 import React from 'react';
 import SimpleCard from './card';
-
+import List from './list'
 class CONTAINER extends React.Component{
     constructor(){
         super()   
         this.state={
-            counter:0
+            numChildren:0
         }
-        this.newCard=this.newCard.bind(this);
+        
     }
-
-    newCard(){
+    onAddChild = () => {
         this.setState({
-            counter:this.state.counter +1 ,
-        })
-        // var counter=this.state.count +1 ;
-        console.log(this.state.counter);
-        
-         var Array=[];
-        Array.push(this.state.counter)
-        
-         console.log(Array)
-        // console.log('clicked')
-        //const Array=[0,1,2,3]
-        // Array.map(function(no){return(
-        //      <SimpleCard data="content"  title="Completed"/>
-        //      )
-        // }
-        // );
-    }
+          numChildren: this.state.numChildren + 1
+        });
+      }
+  
     render(){
+        const children = [];
+
+        for (var i = 0; i < this.state.numChildren; i += 1) {
+          children.push(<ChildComponent key={i} number={i} />);
+        };
         
         return(
-            <div className="card-all"> 
-             
-        
-            <button style={{height:'40px',background:'none'}} onClick={this.newCard} >ADD NEW CARD</button>
-            </div>
+            <ParentComponent addChild={this.onAddChild} style={{display:'flex'}}>
+            {children}
+          </ParentComponent>
+         
         )
     }
 
 }
 
+
+
+
+const ParentComponent = props => (
+    <div className="card calculator">
+      <p><a href="#" onClick={props.addChild}>Add New Card</a></p>
+      <div id="children-pane">
+        {props.children}
+      </div>
+    </div>
+  );
+  
+
+const ChildComponent = props => <div><SimpleCard/> </div>
 export default CONTAINER

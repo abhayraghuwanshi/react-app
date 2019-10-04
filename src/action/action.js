@@ -1,13 +1,15 @@
-import React from 'react'
+
+import { ADD_TODO } from './constant'
+import { ADD_TITLE_CARD } from './constant'
 
 
-export const ITEMS_REQUEST = 'ITEMS_REQUEST' ;
-
-export function Todo(){
-   return {
-      type: ITEMS_REQUEST,
-      payload:{
-          name:"abhay"
-      }
-   }
+export default function AddTodo(payload){  
+   return { type: ADD_TODO, 
+          payload };
 }
+
+export function AddTodoCardTitle(payload){  
+   return { type: ADD_TITLE_CARD, 
+          payload };
+}
+

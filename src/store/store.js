@@ -1,10 +1,11 @@
 import { createStore } from 'redux';
-import reducer from '../reducer/reducer.js'
+import {Cardreducer} from '../reducer/reducer.js'
+import {combineReducers} from 'redux'
+import { CardTitlereducer } from  '../reducer/reducer.js'
 
-const enhancer= window.devToolsExtension && window.devToolsExtension()
-const store = createStore(reducer, {enhancer});
+const allReducer=combineReducers({Cardreducer,CardTitlereducer})
 
-store.getState()
+const store = createStore(allReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 
 export default store;
