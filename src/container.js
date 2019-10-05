@@ -1,6 +1,7 @@
 import React from 'react';
 import SimpleCard from './card';
 import List from './list'
+import './App.css';
 class CONTAINER extends React.Component{
     constructor(){
         super()   
@@ -23,7 +24,7 @@ class CONTAINER extends React.Component{
         };
         
         return(
-            <ParentComponent addChild={this.onAddChild} style={{display:'flex'}}>
+            <ParentComponent addChild={this.onAddChild} styl="flex">
             {children}
           </ParentComponent>
          
@@ -32,18 +33,15 @@ class CONTAINER extends React.Component{
 
 }
 
-
-
-
-const ParentComponent = props => (
+const ParentComponent = (props,styl) => (
     <div className="card calculator">
       <p><a href="#" onClick={props.addChild}>Add New Card</a></p>
-      <div id="children-pane">
+      <div id="children-pane" style={{display:props.styl}}>
         {props.children}
       </div>
     </div>
   );
   
 
-const ChildComponent = props => <div><SimpleCard/> </div>
+const ChildComponent = props => <div className ="child"><SimpleCard/> </div>
 export default CONTAINER

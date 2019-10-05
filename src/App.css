@@ -1,3 +1,16 @@
 .card-all{
     display: flex;
 }
+
+.parent{
+    display: inline-flex;
+    background-color: red;
+}
+
+.children-pane{
+    display: inline;
+}
+
+.child{
+    flex:1;
+}
